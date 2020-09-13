@@ -1,0 +1,366 @@
+@media screen and (max-width:1200px) {
+    .client-image {
+        height: 130px !important;
+        width: 130px !important;
+    }
+    /* .main-tab-wrapper {
+        width: 100%;
+        overflow-y: scroll;
+    } */
+    .nav-tabs {
+        width: max-content;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:992px) {
+
+    .add-room-form {
+       
+        left: 185px;
+        right: auto !important;
+    }
+    .nav-tabs {
+        padding: 0 !important;
+        display: block;
+        width: 100%;
+        overflow-y: scroll;
+        white-space: nowrap;
+    }
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-item .nav-link.active:before {
+        display: none;
+    }
+    section.inner-page-form .room-booking-form {
+        padding: 15px !important;
+        background: #fff !important;
+    }
+    section.inner-page-form .room-booking-form .padding-wrapp {
+        padding: 0 15px !important;
+        border: none !important;
+    }
+    .main-nav,
+    .title {
+        margin-bottom: 5px;
+    }
+    .room-display-listing {
+        margin-bottom: 30px;
+    }
+    .nav-tabs2 .nav-link::before {
+        display: none !important;
+    }
+    .nav-tabs2 .nav-item {
+        display: inline-block !important;
+    }
+    .service-detail-tab-wrapper {
+        width: 100%;
+        overflow-y: scroll;
+    }
+    .sticky nav {
+        display: block;
+    }
+    .new-room-wrapper img {
+        border-bottom-left-radius: 0 !important;
+    }
+    .client-image {
+        height: 110px !important;
+        width: 110px !important;
+    }
+    .sticky .sub-menu {
+        padding-top: 0;
+    }
+    .top-menu-bar {
+        display: block;
+    }
+    .main-navigation {
+        position: fixed;
+        top: 0;
+        background: #29993e;
+        width: 100%;
+        z-index: 9;
+        right: -100%;
+        height: 100%;
+        transition: 500ms;
+        overflow-x: scroll;
+    }
+    .main-navigation.open {
+        right: 0;
+    }
+    .small-screen {
+        display: flex !important;
+    }
+    .big-screen {
+        display: none !important;
+    }
+    nav ul li {
+        display: block;
+    }
+    nav ul li a {
+        display: block;
+        padding: 10px;
+    }
+    .sub-menu {
+        position: static;
+        transform: inherit !important;
+        display: none;
+        padding-top: 0 !important;
+        transition: inherit;
+        transform-origin: inherit !important;
+    }
+    .top-info-wrapper {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-right: 15px;
+    }
+    .sticky .top-menu-bar {
+        top: 25px;
+    }
+    .room-booking-form input,
+    .room-booking-form select,
+    .room-booking-form button {
+        margin: 5px 0;
+    }
+    .nav-tabs,
+    .nav-tabs .nav-link {
+        padding: 10px;
+    }
+    .image-wrapper {
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+    }
+    .image-wrapper img {
+        width: 20px;
+    }
+    .nav-tabs li span {
+        font-size: 12px;
+    }
+    .tab-content-image {
+        margin-bottom: 10px;
+    }
+    .footer-col-wrapper {
+        margin-bottom: 30px;
+    }
+    .blog-detail-page,
+    .gallery-listing-page,
+    .testimonial-page,
+    .blog-sec,
+    .testimonial-sec,
+    .services-sec,
+    .rooms-section,
+    .video-sec {
+        padding: 40px 0 !important;
+    }
+    .gallery-title {
+        margin-bottom: 40px !important;
+    }
+    section.room-booking-form-sec.fixed {
+        display: none;
+    }
+    .room-top-image {
+        margin-bottom: 20px !important;
+    }
+    nav ul li a {
+        border-bottom: 1px solid #f2f2f2;
+    }
+}
+
+@media screen and (max-width:767px) {
+
+    .testi_slider .slides .item:nth-child(even) .testi-page-wrapper .testimonial-page-content,
+    .testi-page-wrapper {
+
+        text-align: center !important;
+    }
+
+    #testi-image {
+
+        margin: 0 auto !important;
+        text-align: center;
+    }
+
+
+    .number {
+        top: inherit;
+        bottom: 110% !important;
+        max-height: 40vh;
+    }
+    .add-room-form {
+        top: 100% !important;
+        display: none;
+        bottom: inherit !important;
+        transition: none;
+    }
+    .option-image-wrapp {
+        margin-left: 15px;
+    }
+    .room-option-wrapper {
+        padding-left: 15px;
+    }
+    .room-display-listing {
+        padding: 0 !important;
+    }
+    .new-room-btn-top-wrapper {
+        border-top: 1px solid #f2f2f2;
+        border-left: none;
+        padding-top: 15px !important;
+    }
+    .new-room-includes-wrapp {
+        border-top: 1px solid #f2f2f2;
+        padding-top: 15px !important;
+    }
+    .new-room-price-wrapper {
+        margin-bottom: 15px;
+    }
+    .moreless-button {
+        margin: 0 auto !important;
+    }
+    .small-sticky-form-book-form.open {
+        overflow: scroll;
+        height: 100%;
+        width: 100%;
+    }
+    /* .new-room-includes-wrapp,
+    .new-room-includes-wrapp {
+
+        padding-top: 0 !important;
+    } */
+    .other-room-title-wrapper h2,
+    .blog-top-title h2,
+    .room-slider-content h2,
+    .testimonial-page-title h2 {
+        font-size: 25px !important;
+    }
+    .client-image {
+        margin: 0 !important;
+        margin-bottom: 10px !important;
+    }
+    .video-sec-content-side {
+        margin-bottom: 15px;
+    }
+    ul.nav.nav-tabs {
+        width: 100%;
+        overflow-y: scroll;
+    }
+    .main-tab-wrapper {
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x: auto;
+    }
+    .title-wrapper span::before {
+        left: 54%;
+    }
+    .room-title span::before,
+    .services-title span::before {
+        left: 35%;
+    }
+    .top-info-wrapper span,
+    .top-info-wrapper a {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    .flex-direction-nav {
+        display: none;
+    }
+    .testimonial-page-wrapper:nth-child(odd) .client-image {
+        float: right;
+    }
+    .column {
+        -ms-flex: 50% !important;
+        flex: 50% !important;
+        max-width: 50% !important;
+    }
+    .room-facility-wrapper ul {
+        column-count: 3 !important;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .small-screen {
+        display: none !important;
+    }
+    .company-title h2 {
+        font-size: 25px !important;
+    }
+    .company-profile-content::before {
+        left: 47% !important;
+    }
+}
+
+@media screen and (max-width:528px) {
+    .room-title span::before,
+    .services-title span::before {
+        left: 54%;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .room-detail-slider ul li figure {
+        height: 300px !important;
+    }
+    .footer-form {
+        left: 0;
+        max-width: 100%;
+    }
+    .slider-logo-wrapper img {
+        width: 200px;
+    }
+    .room-facility-wrapper ul {
+        column-count: 2 !important;
+    }
+    .services-top-image {
+        height: 250px !important;
+    }
+    .services-detail-content-wrapper ul li {
+        font-size: 12px !important;
+    }
+    .other-room-title-wrapper h2,
+    .video-content h2 {
+        font-size: 20px !important;
+    }
+    .new-room-content-wrapp h3,
+    .room-content h3 {
+        font-size: 16px;
+    }
+}
+
+
+@media (max-width:425px) {
+
+
+
+    .no_of_rooms {
+        position: fixed !important;
+        /* position: absolute; */
+        left: 0 !important;
+        top:0 !important;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: white;
+        z-index: 999 !important;
+    }
+
+    .add-room-form {
+        display: none;
+        transition: none;
+        max-height: 200px;
+        overflow: auto;
+        right:0 !important;
+        position: fixed !important;
+        z-index: 9999 !important;
+        top: 67px !important;
+    }
+}
+
+@media screen and (max-width:360px) {
+    .room-title span::before,
+    .services-title span::before {
+        left: 25%;
+    }
+    .title-wrapper span::before {
+        left: 24%;
+    }
+}
