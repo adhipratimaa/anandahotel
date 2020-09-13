@@ -41,6 +41,13 @@ Route::group(['namespace'=>'Admin','middleware'=>['auth'],'prefix'=>'admin'],fun
 	Route::get('booked-history','BookingController@bookedHistory')->name('bookedHistory');
 });
 
+Route::group(['namespace' => 'Ipay'], function () {
+
+	Route::get('process-payment', 'IpayController@processPayment');
+
+	Route::post('ipay-response/{id}', 'IpayController@collectIpayResponse');
+});
+
 Route::group(['namespace'=>'Front'],function(){
 	Route::get('/','DefaultController@index')->name('home');
 	Route::get('/services','DefaultController@services')->name('services');
