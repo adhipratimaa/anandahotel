@@ -100,7 +100,9 @@ li.secure-payment > div {margin-bottom: 20px;display: block; }
                     <div>
 
                          <p><img src="{{asset('front/images/secure-payment.png')}}"></p>
-                        <p><h4>Pay now</h4></p>
+                        <p>
+                            <a href="{{url('process-payment')}}"><h4>Pay now</h4></a>
+                        </p>
                         <p>Pay the full amount of the reservation
                         online in a secure Environment </p>
                         </div>
