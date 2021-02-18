@@ -15,13 +15,15 @@ use App\Repositories\Team\TeamRepository;
 use App\Repositories\Booking\BookingRepository;
 use App\Repositories\Customer\CustomerRepository;
 use App\Repositories\Promo\PromoRepository;
+use App\Repositories\Gallery\GalleryRepository;
+use Validator;
 use Carbon\Carbon;
 use Mail;
 use DB;
 use Session;
 class DefaultController extends Controller
 {
-	public function __construct(SliderRepository $slider,BlogRepository $blog,TestimonialRepository $testimonial,RoomRepository $room,ServiceRepository $service,RoomTypeRepository $roomType,PageRepository $page,TeamRepository $team,BookingRepository $booking,CustomerRepository $customer,PromoRepository $promo){
+	public function __construct(SliderRepository $slider,BlogRepository $blog,TestimonialRepository $testimonial,RoomRepository $room,ServiceRepository $service,RoomTypeRepository $roomType,PageRepository $page,TeamRepository $team,BookingRepository $booking,CustomerRepository $customer,PromoRepository $promo, GalleryRepository $gallery){
 		$this->slider=$slider;
 		$this->blog=$blog;
 		$this->testimonial=$testimonial;
@@ -33,6 +35,8 @@ class DefaultController extends Controller
         $this->booking=$booking;
         $this->customer=$customer;
         $this->promo=$promo;
+        $this->gallery=$gallery;
+
 	}
     public function index(){
         //dd(session()->get('adults'));
@@ -40,9 +44,8 @@ class DefaultController extends Controller
         session()->forget('check_in_date');
         session()->forget('check_out_date');
         session()->forget('adults');
-
+        session()->forget('number_of_rooms');
         session()->forget('childs');
-        
 
     	$sliders=$this->slider->where('publish',1)->orderBy('created_at','desc')->where('type','home')->take(4)->get();
     	$blogs=$this->blog->where('publish',1)->orderBy('created_at','desc')->take(3)->get();
@@ -60,18 +63,20 @@ class DefaultController extends Controller
         session()->forget('adults');
 
         session()->forget('childs');
-        $services=$this->service->where('publish',1)->orderBy('created_at','desc')->get();
+        $services=$this->service->where('publish',1)->where('category','none')->where('show_in_menu',null)->orderBy('created_at','desc')->get();
         $roomTypes=$this->roomType->where('publish',1)->orderBy('created_at','desc')->get();
 
         return view('front.services',compact('services','roomTypes'));
     }
     public function blogs(){
+        $roomTypes = $this->roomType->get();
         $blogs=$this->blog->where('publish',1)->orderBy('created_at','desc')->get();
-        return view('front.blogs',compact('blogs'));
+        return view('front.blogs',compact('blogs','roomTypes'));
     }
     public function testimonials(){
+        $roomTypes = $this->roomType->get();
         $testimonials=$this->testimonial->where('publish',1)->orderBy('created_at','desc')->get();
-        return view('front.testimonials',compact('testimonials'));
+        return view('front.testimonials',compact('testimonials','roomTypes'));
     }
     public function singleRoomType($slug){
         session()->forget('cart');
@@ -94,9 +99,10 @@ class DefaultController extends Controller
     }
     public function blogInner($slug){
         $blog=$this->blog->where('slug',$slug)->first();
+        $roomTypes = $this->roomType->get();
         if($blog){
             $recentBlogs=$this->blog->where('publish',1)->orderBy('created_at','desc')->where('id','!=',$blog->id)->take(3)->get();
-            return view('front.blogInner',compact('blog','recentBlogs'));
+            return view('front.blogInner',compact('blog','recentBlogs','roomTypes'));
         }
         abort(404);
     }
@@ -106,7 +112,8 @@ class DefaultController extends Controller
         return view('front.allCategory',compact('roomTypes'));
     }
     public function contactUs(){
-        return view('front.contactUs');
+        $roomTypes = $this->roomType->get();
+        return view('front.contactUs',compact('roomTypes'));
     }
     public function saveContact(Request $request){
         $this->validate($request,['name'=>'required','email'=>'required|email','subject'=>'required','message'=>'required']);
@@ -135,8 +142,9 @@ class DefaultController extends Controller
         
     }
     public function teams(){
+        $roomTypes = $this->roomType->get();
         $teams=$this->team->where('publish',1)->orderBy('created_at','desc')->get();
-        return view('front.allTeams',compact('teams'));
+        return view('front.allTeams',compact('teams','roomTypes'));
     }
     public function getCategoryCapacity(Request $request){
         $roomType=$this->roomType->find($request->id);
@@ -144,6 +152,7 @@ class DefaultController extends Controller
     }
     public function searchRoom(Request $request){
         //dd($request->all());
+        
         // foreach ($request->adult as $key => $value) {
         //     $customMessages['adult.' . $key . '.gt'] = 'Adult for Room'. ($key+1).' should be greater than 0';
         // }
@@ -180,6 +189,7 @@ class DefaultController extends Controller
             session()->put('childs',$request->child);
             session()->put('old_input',$request->adult);
             session()->put('date_diff',$date_diff);
+            session()->put('number_of_rooms',$request->number_of_rooms);
 
 
         }
@@ -222,6 +232,7 @@ class DefaultController extends Controller
                 session()->put('old_input',$request->adult);
                 session()->put('promo_code',$request->promo_code);
                 session()->put('date_diff',$date_diff);
+                session()->put('number_of_rooms',$request->number_of_rooms);
                 //session()->forget('cart');
 
            // }
@@ -236,6 +247,7 @@ class DefaultController extends Controller
             session()->put('old_input',$request->adult);
             session()->put('date_diff',$date_diff);
             session()->put('promo_code',$request->promo_code);
+            session()->put('number_of_rooms',$request->number_of_rooms);
 
         }
         
@@ -262,32 +274,60 @@ class DefaultController extends Controller
         $cart=session()->get('cart');
 
         $roomTypes=$this->roomType->where('publish',1)->orderBy('created_at','desc')->get();
+     
+        
+         
         
         $promo_code=$this->promo->where('promo_code',$request->promo_code)->first();
-        return view('front.searchResult',compact('all_rooms','checkIn_date','checkOut_date','cart','roomTypes','number_of_rooms','promo_code'));
+        
+    
+            // $related_roomTypes = $this->roomTypes->where('id', $roomTypes->id)->where('publish',1)->get();
+        return view('front.searchResult',compact('all_rooms','checkIn_date','checkOut_date','cart','roomTypes','number_of_rooms','promo_code', 'related_roomTypes'));
+        
+        
+        
     }
     public function getDataOfSingleRoom(Request $request){
-        $room=$this->room->find($request->id);
-        $cart = session()->get('cart');
-        $adults = session()->get('adults');
-        if($adults>$cart){
-            if($room){
-                $this->addToCart($room);
-                $cart=session()->get('cart');
-                $sum=0;
-                foreach($cart as $cart){
-                    $total= $cart['price']*session()->get('date_diff');
-                    $sum+=$total;
+        $room=$this->roomType->find($request->id);
 
-                }
+        if($room){
+
+            
+            $cart = session()->get('cart');
+            $number_of_rooms_selected = session()->get('number_of_rooms');
+
+            $adults = session()->get('adults');
+
+            
+            $number_of_rooms = 0;
+            if($cart){
+               foreach($cart as $cart){
+                   
+                   $number_of_rooms+=$cart['number_of_rooms'];
+               } 
+            }
+            //dd($number_of_rooms);
+            
+            if($number_of_rooms_selected<=$number_of_rooms){
                 
-
-
-                return response()->json(['status'=>true,'sum'=>$sum,'html'=>view('front.include.singleRoomBookSection',compact('room'))->render()]);
+                return response()->json(['message'=>'fail','status'=>false]);
+            }else{
+                $this->addToCart($room);
+                $cart = session()->get('cart');
+                $sum=0;
+                $number_of_rooms = 0;       
+                foreach($cart as $cart){
+                    $total= $cart['price']*session()->get('date_diff')*$cart['number_of_rooms'];
+                    $sum+=$total;
+                    $number_of_rooms+=$cart['number_of_rooms'];
+                }
+                return response()->json(['message'=>'success','status'=>true,'number_of_rooms'=>$number_of_rooms,'sum'=>$sum,'html'=>view('front.include.singleRoomBookSection',compact('room','cart'))->render()]);
             }
         }else{
             return response()->json(['message'=>'fail','status'=>false]);
         }
+        
+        
         
     }
     public function addToCart($room){
@@ -301,9 +341,11 @@ class DefaultController extends Controller
         }else{
             $cart_count=count($cart);   
         }
+
         
         // if cart is empty then this the first product
         if(!$cart){
+
             $cart = [
                 $room->id => [
                     'id'=>$room->id,
@@ -311,14 +353,26 @@ class DefaultController extends Controller
                     "price" => $room->price,
                     "adults"=>$adults[$cart_count],
                     "childs"=>$childs[$cart_count],
-                    "roomtype_id"=>$room->roomType->id
+                    'number_of_rooms'=>1,
                 ]
             ];
             session()->put('cart', $cart);
+            return;
         }
         // if cart not empty then check if this product exist then do nothinf 
         if(isset($cart[$room->id])) {
+            
+            $cart[$room->id]['id']=$room->id;
+            $cart[$room->id]['name']=$room->name;
+            $cart[$room->id]['price']=$room->price;
+            $cart[$room->id]['adults']+=$adults[$cart_count];
+            $cart[$room->id]['childs']+=$childs[$cart_count];
+            $cart[$room->id]['number_of_rooms']+=1;
+
+            session()->put('cart', $cart);
+            
             return;
+
         }
         // if item not exist in cart then add to cart with quantity = 1
 
@@ -328,7 +382,7 @@ class DefaultController extends Controller
             "price" => $room->price,
             "adults"=>$adults[$cart_count],
             "childs"=>$childs[$cart_count],
-            "roomtype_id"=>$room->roomType->id
+            "number_of_rooms"=>1,
         ];
         session()->put('cart', $cart);
        
@@ -338,7 +392,15 @@ class DefaultController extends Controller
         unset($cart[$request->id]);
         session()->forget('cart');
         session()->put('cart',$cart);
-        return response()->json(['message'=>true]);
+        $cart = session()->get('cart');
+        $sum=0;
+        $number_of_rooms = 0;       
+        foreach($cart as $cart){
+            $total= $cart['price']*session()->get('date_diff')*$cart['number_of_rooms'];
+            $sum+=$total;
+            $number_of_rooms+=$cart['number_of_rooms'];
+        }
+        return response()->json(['message'=>true,'sum'=>$sum,'number_of_rooms'=>$number_of_rooms]);
     }
 
     public function removeElementWithValue($array, $key, $value){
@@ -349,16 +411,17 @@ class DefaultController extends Controller
         }
         return $array;
     }
-    public function checkOutForm(){
+   public function checkOutForm(){
 
         $carts=session()->get('cart');
         $promo_code=session()->get('promo_code');
         $promo=$this->promo->where('promo_code',$promo_code)->first();
         $countries=DB::table('country')->get();
         if($carts!=null){
+            $roomTypes = $this->roomType->get();
             $check_in_date=session()->get('check_in_date');
             $check_out_date=session()->get('check_out_date');
-            return view('front.checkOut',compact('carts','check_in_date','check_out_date','countries','promo'));
+            return view('front.checkOut',compact('carts','check_in_date','check_out_date','countries','promo','roomTypes'));
         }
         return redirect()->route('home');
         
@@ -366,34 +429,58 @@ class DefaultController extends Controller
     public function bookIndividualRoom(Request $request){
         dd($request->all());
     }
-    public function addPeopleData(Request $request){
-        
-        foreach($request->addedadult as $adults){
-            $adult=session()->get('adults');
-            $adult_count=count($adult);
-            $adult[$adult_count]=$adults;
+   public function addPeopleData(Request $request){
+        //dd($request->all());
+        $validator = Validator::make($request->all(),[
+            'addedadult'           => 'required|array',
+            'addedadult.*'         => 'required|integer|gt:0',
+        ]);
+        if($validator->fails()){
+            return 'fail';
+        }else{
+            foreach($request->addedadult as $adults){
+                
+                $adult=session()->get('adults');
+                $adult_count=count($adult);
+                $adult[$adult_count]=$adults;
+            }
+            foreach($request->addedchild as $childs){
+                $child=session()->get('childs');
+                $child_count=count($child);
+                $child[$child_count]=$childs;
+            }
+            $previous_no_of_rooms = session()->get('number_of_rooms');
+            $new_number_of_rooms = $previous_no_of_rooms+$request->number_of_rooms; 
+            session()->put('number_of_rooms',$new_number_of_rooms);
+            
+            session()->forget('adults');
+            session()->forget('childs');
+            session()->put('adults',$adult);
+            session()->put('childs',$child);
+            return "success";
         }
-        foreach($request->addedchild as $childs){
-            $child=session()->get('childs');
-            $child_count=count($child);
-            $child[$child_count]=$childs;
-        }
-    
         
-        
-        session()->forget('adults');
-        session()->forget('childs');
-        session()->put('adults',$adult);
-        session()->put('childs',$child);
-        return "success";
     }
     public function saveBooking(Request $request){
+        
+         $this->validate($request,[
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone_number' => 'required',
+            'email'=>'required',
+            'special_request'=>'required',
+
+            
+            ]);
+
         $carts=session()->get('cart');
         if(session()->get('cart')){
             $customer['first_name']=$request->first_name;
             $customer['last_name']=$request->last_name;
             $customer['email']=$request->email;
             $customer['phone_number']=$request->phone_number;
+            $customer['special_request']=$request->special_request;
+
             if($promo_code=session()->get('promo_code')){
                 $promo=$this->promo->where('promo_code',$promo_code)->first();
                 $customer['promo_id']=$promo->id;
@@ -403,18 +490,21 @@ class DefaultController extends Controller
             $result=$this->customer->create($customer);
             foreach($carts as $cart){
                 
-                $data['roomtype_id']=$cart['roomtype_id'];
-                $data['room_id']=$cart['id'];
+                
+                $data['roomtype_id']=$cart['id'];
                 $data['customer_id']=$result->id;
                 $data['checkIn_date']=session()->get('check_in_date');
                 $data['checkOut_date']=session()->get('check_out_date');
-                $data['person']=$cart['adults'];
-                $data['childs']=$cart['childs'];
+                $data['person']=$cart['adults']*$cart['number_of_rooms'];
+                $data['childs']=$cart['childs']*$cart['number_of_rooms'];
+
                 $data['price']=$cart['price'];
+                $data['number_of_rooms'] = $cart['number_of_rooms'];
                 $data['first_name']=$request->first_name;
                 $data['last_name']=$request->last_name;
                 $data['phone_number']=$request->phone_number;
                 $data['email']=$request->email;
+                $data['special_request']=$request->special_request;
                 if($promo_code=session()->get('promo_code')){
                     $promo=$this->promo->where('promo_code',$promo_code)->first();
                     $data['promo_id']=$promo->id;
@@ -423,16 +513,26 @@ class DefaultController extends Controller
                 
                 $this->booking->create($data);
             }
-            session()->forget('cart');
+            //session()->forget('cart');
             session()->forget('check_in_date');
             session()->forget('check_out_date');
             session()->forget('adults');
 
             session()->forget('childs');
             session()->forget('promo_code');
-            return redirect()->back();
+            session()->forget('number_of_rooms');
+            session()->put('thankyou',1);
+             Mail::send('email.customerDetail', $data, function ($message) use ($data,$request) {
+            $message->to('adhipratimaa@gmail.com')->from($data['email'],$data['first_name'])->replyTo($data['email']);
+                $message->subject('Room Booking'); 
+              
+            
+        });
+             
+            return redirect()->back()->with('success_message','message');
+
         }else{
-            return redirect()->route('login');
+            return redirect()->route('home');
         }
         
     }
@@ -486,4 +586,92 @@ class DefaultController extends Controller
         
         return response()->json(['status'=>true,'html'=>view('front.include.filterResult',compact('all_rooms'))->render()]);
     }
+
+    public function room(){
+
+        return view('front.singleRoom',compact('detail'));
+    }
+    public function allServices($slug){
+        $roomTypes = $this->roomType->get();
+        
+        if($slug == 'packages'){
+        $services=$this->service->where('publish',1)->where('category','packages')->orderBy('created_at','desc')->get();
+
+        } else if ($slug == 'dining'){
+        $services=$this->service->where('publish',1)->where('category','dining')->orderBy('created_at','desc')->get();
+
+        }else if ($slug == 'meeting-and-conferences'){
+        $services=$this->service->where('publish',1)->where('category','meeting_and_conference')->orderBy('created_at','desc')->get();
+
+        }
+        
+        
+       
+
+        return view('front.allServices',compact('services','roomTypes'));
+    }
+    public function serviceDetail($slug){
+        $roomTypes = $this->roomType->get();
+        $services=$this->service->where('slug',$slug)->first();
+        
+        
+        return view('front.serviceDetail',compact('services','roomTypes'));
+        }
+        
+  
+    public function accomodation(){
+        $roomTypes=$this->roomType->where('publish',1)->orderBy('created_at','desc')->get();
+       
+       return view('front.accommodation',compact('roomTypes'));
+
+    }
+
+    public function roomDetail($slug){
+        $roomType=$this->roomType->where('slug',$slug)->first();
+        // dd($roomTypes);
+        $roomTypes = $this->roomType->get();
+        
+        return view('front.roomDetail',compact('roomType','roomTypes'));
+    }
+
+    public function roomTypeImage($id){
+        $roomTypeImage=$this->roomType->findOrFail($id);
+        // dd($roomTypeImage);
+        
+        return view('front.roomDetail',compact('roomTypeImage'));
+    }
+    public function bookNow(){
+        $roomTypes = $this->roomType->get();
+        return view('front.bookNow',compact('roomTypes'));
+    }
+    public function thankYou(){
+        if(session()->get('thankyou')==1){
+            $roomTypes = $this->roomType->get();
+            return view('front.thankU',compact('roomTypes'));
+        }else{
+            return redirect()->route('home');
+        }
+        
+    }
+
+    public function allGalleries(){
+
+        $galleries=$this->gallery->orderBy('created_at','desc')->where('is_active',1)->get();
+        $roomTypes = $this->roomType->get();
+
+
+        // dd($galleries);
+        return view('front.allGalleries',compact('galleries', 'roomTypes'));
+    }
+
+    public function galleryInner($id){
+        $galleries=$this->gallery->findOrFail($id);
+        $roomTypes = $this->roomType->get();
+        return view('front.galleryInner',compact('galleries', 'roomTypes'));
+    }
+
+    
+    
 }
+
+

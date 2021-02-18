@@ -52,9 +52,9 @@
                 </div> -->
                 <div class="col-lg-2 col-md-6 col-12 padding-wrapp">
                     <div class="wrapper">
-                        <div class="main-nav roomNumber">No.of Rooms</div>
+                        <div class="main-nav roomNumberindex">No.of Rooms</div>
 
-                        <ul class="drop-item">
+                        <ul class="drop-item dropItemIndex">
                             <div class="room-number">
                                 <p>Select room</p>
                                 <form>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6 col-12 padding-wrapp">
-                    <input type="submit" name="submit" value="Check Availiblity" class="site-btn">
+                    <input type="submit" name="submit" value="Book Now" class="site-btn">
                     
                 </div>
             </div>

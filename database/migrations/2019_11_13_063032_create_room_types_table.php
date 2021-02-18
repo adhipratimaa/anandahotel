@@ -19,6 +19,7 @@ class CreateRoomTypesTable extends Migration
             $table->integer('room_capacity')->nullable();
             $table->float('price',8,2)->nullable();
             $table->text('short_description')->nullable();
+            $table->text('description')->nullable();
             $table->boolean('publish')->nullable();
             $table->string('image')->nullable();
             $table->string('slug')->nullable();

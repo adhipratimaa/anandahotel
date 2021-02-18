@@ -23,7 +23,7 @@
            
             <div class="row">
                 
-                <div class="col-lg-3 col-md-6 col-12 padding-wrapp">
+                <div class="col-lg-3 col-md-6 col-12 padding-wrapp check_in_out">
                     <?php
                         $route_name = Request::route()->getName();
                     ?>
@@ -64,16 +64,16 @@
                     --}}
                     @if(session()->get('check_in_date'))
 
-                    <input style="width: 100%" class="date-check" type="text" name="check_in_date" id="check_in_date" autocomplete="off" placeholder="Check In" value="{{session()->get('check_in_date')}}">
+                    <input style="width: 100%" class="date-check check_in_inner" type="text" name="check_in_date" id="check_in_inner" autocomplete="off" placeholder="Check In" value="{{session()->get('check_in_date')}}">
                     @else
-                    <input type="text" style="width: 100%" name="check_in_date" id="check_in_date" autocomplete="off" placeholder="Check In" value="">
+                    <input type="text" style="width: 100%" name="check_in_date" id="check_in_inner" autocomplete="off" placeholder="Check In" value="" class="check_in_inner">
                     @endif
                 </div>
-                <div class="col-lg-3 col-md-6 col-12 padding-wrapp">
+                <div class="col-lg-3 col-md-6 col-12 padding-wrapp check_in_out">
                     @if(session()->get('check_out_date'))
-                    <input type="text" name="check_out_date" id="check_out_date" autocomplete="off" placeholder="Check Out" value="{{session()->get('check_out_date')}}">
+                    <input type="text" name="check_out_date" id="check_out_inner" autocomplete="off" placeholder="Check Out" value="{{session()->get('check_out_date')}}">
                     @else
-                    <input type="text" name="check_out_date" id="check_out_date" autocomplete="off" placeholder="Check Out" value="">
+                    <input type="text" name="check_out_date" id="check_out_inner" autocomplete="off" placeholder="Check Out" value="">
                     @endif
                 </div>
                 <!-- <div class="col-lg-2 col-md-6 col-12 padding-wrapp">
@@ -93,13 +93,13 @@
                 <div class="col-lg-2 col-md-6 col-12 padding-wrapp">
                     <div class="wrapper">
                         <div class="main-nav roomNumber">No.of Rooms</div>
-                        <ul class="drop-item">
+                        <ul class="drop-item dropItemInner">
                             <div class="room-number">
                                 <p>Select room</p>
                                 <div class="number-wrapper1">
-                                    <div class="value-button sub" id="decrease" value="Decrease Value">-</div>
-                                    <input type="number" id="number" value="0" class="number_of_rooms" name="number_of_rooms" />
-                                    <div class="value-button add" id="increase" value="Increase Value">+</div>
+                                    <div class="value-button subinner" id="decrease" value="Decrease Value">-</div>
+                                    <input type="number" id="number" value="0" class="number_of_rooms_inner" name="number_of_rooms" />
+                                    <div class="value-button addinner" id="increase" value="Increase Value">+</div>
                                 </div>
                             </div>
                         </ul>
@@ -110,13 +110,13 @@
                     <div class="people-wrapp">
                         <input type="text" placeholder="Promo Code" name="promo_code">
                     </div>
-                    <div class="number number_of_people">
+                    <div class="number number_of_people_inner">
                         
                     </div>
                    
                 </div>
                 <div class="col-lg-2 col-md-6 col-12 padding-wrapp">
-                    <input type="submit" name="" class="site-btn submitButton" value="Check Availiblity">
+                    <input type="submit" name="" class="site-btn submitButton" value="Book Now">
                     <!-- <a href="room-display.php" class="site-btn">Check Availiblity</a> -->
                 </div>
             </div>

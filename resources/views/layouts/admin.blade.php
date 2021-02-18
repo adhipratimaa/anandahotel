@@ -140,6 +140,12 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span> -->
           </a>
+          <a href="{{route('setting.index')}}">
+            <i class="fa fa-sliders"></i> <span>Site Setting</span>
+           <!--  <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span> -->
+          </a>
          <li class="treeview ">
            <a href="#">
              <i class="fa fa-sliders"></i> <span>Features</span>
@@ -155,14 +161,15 @@
         
         <li class="treeview ">
           <a href="#">
-            <i class="fa fa-sliders"></i> <span>Room Types</span>
+            <i class="fa fa-sliders"></i> <span>Rooms</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class=""><a href="{{route('room-type.create')}}"><i class="fa fa-circle-o text-yellow"></i> Add Room Type</a></li>
-            <li class=""><a href="{{route('room-type.index')}}"><i class="fa fa-circle-o text-yellow"></i> All Room Types</a></li>
+            <li class=""><a href="{{route('room-type.create')}}"><i class="fa fa-circle-o text-yellow"></i> Add Room</a></li>
+            <li class=""><a href="{{route('room-type.index')}}"><i class="fa fa-circle-o text-yellow"></i> All Rooms</a></li>
+            <li class=""><a href="{{route('bookedHistory')}}"><i class="fa fa-circle-o text-aqua"></i>Booked History</a></li>
             
           </ul>
         </li>
@@ -180,19 +187,30 @@
         </li>
         <li class="treeview ">
           <a href="#">
-            <i class="fa fa-sliders"></i> <span>Room</span>
+            <i class="fa fa-sliders"></i> <span>Gallery</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class=""><a href="{{route('room.create')}}"><i class="fa fa-circle-o text-yellow"></i> Add Room</a></li>
-            <li class=""><a href="{{route('room.index')}}"><i class="fa fa-circle-o text-aqua"></i> All Rooms</a></li>
-           <!--  <li class=""><a href="{{route('booking.index')}}"><i class="fa fa-circle-o text-aqua"></i>Room Booking</a></li> -->
-           <li class=""><a href="{{route('bookedHistory')}}"><i class="fa fa-circle-o text-aqua"></i>Booked History</a></li>
-
+            <li class=""><a href="{{route('gallery.create')}}"><i class="fa fa-circle-o text-yellow"></i> Add Gallery</a></li>
+            <li class=""><a href="{{route('gallery.index')}}"><i class="fa fa-circle-o text-aqua"></i> All Galleries</a></li>
           </ul>
         </li>
+        <!--<li class="treeview ">-->
+        <!--  <a href="#">-->
+        <!--    <i class="fa fa-sliders"></i> <span>Room</span>-->
+        <!--    <span class="pull-right-container">-->
+        <!--      <i class="fa fa-angle-left pull-right"></i>-->
+        <!--    </span>-->
+        <!--  </a>-->
+        <!--  <ul class="treeview-menu">-->
+        <!--    <li class=""><a href="{{route('room.create')}}"><i class="fa fa-circle-o text-yellow"></i> Add Room</a></li>-->
+        <!--    <li class=""><a href="{{route('room.index')}}"><i class="fa fa-circle-o text-aqua"></i> All Rooms</a></li>-->
+           
+
+        <!--  </ul>-->
+        <!--</li>-->
         <li class="treeview ">
           <a href="#">
             <i class="fa fa-sliders"></i> <span>Team</span>

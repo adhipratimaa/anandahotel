@@ -40,9 +40,13 @@ class ServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $this->validate($request,['title'=>'required','logo'=>'dimensions:max_width=250,max_height=250|mimes:jpeg,bmp,png','image'=>'dimensions:max_width=2000,max_height=2000|mimes:jpeg,bmp,png']);
+    { 
+        $this->validate($request,[
+            'title'=>'required',
+            'logo'=>'dimensions:max_width=250,max_height=250|mimes:jpeg,bmp,png',
+            'image'=>'dimensions:max_width=2000,max_height=2000|mimes:jpeg,bmp,png']);
         $data=$request->except('publish');
+        // dd($request->title);
         if($request->logo){
             $documents=$request->file('logo');
             $filename=time().'.'.$documents->getClientOriginalName();
@@ -55,6 +59,9 @@ class ServiceController extends Controller
             $data['image']=$image;
         }
         $data['publish']=is_null($request->publish)?0:1;
+        $data['show_in_menu']= is_null($request->show_in_menu)?null:1;
+        $data['category']=$request->category;
+
         $this->service->create($data);
         return redirect()->route('service.index')->with('message','Service Added Successfully');
     }
@@ -107,6 +114,8 @@ class ServiceController extends Controller
             $data['image']=$image;
         }
         $data['service']=is_null($request->publish)?0:1;
+        $data['show_in_menu']= is_null($request->show_in_menu)?null:1;
+        $data['category']=$request->category;
         $this->service->update($data,$id);
         return redirect()->route('service.index')->with('message','Service Updated Successfully');
     }

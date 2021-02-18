@@ -36,16 +36,20 @@
 								<th>name</th>
 								<th>Email</th>
 								<th>Phone</th>
-                                <th>Action</th>
+                <th>Special Request</th>
+                <th>Action</th>
+                
 							</tr>
 						</thead>
 						<tbody>
+             
 						@foreach($customers as $key=>$customer)
 						<tr>
 							<td>{{$key+1}}</td>
 							<td>{{$customer->first_name}} {{$customer->last_name}}</td>
 							<td>{{$customer->email}}</td>
 							<td>{{$customer->phone_number}}</td>
+              <td>{{$customer->special_request}}</td>
 							<td>
 								<a href="" class="btn btn-info view" data-id="{{$customer->id}}">View</a>
 							</td>
@@ -95,7 +99,7 @@
   	$(document).on('click','.view',function(e){
   		e.preventDefault();
   		var id = $(this).data('id');
-  		$.ajax({
+  		$.ajax({ 
   		  url: "/admin/booking/"+id,
   		  method: 'GET',
   		  async: true,

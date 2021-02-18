@@ -1,3 +1,5 @@
+<!-- <button class="btn btn-info btn-sm downloadPdfFile" type="button" data-detail_url="{{ route('downloadPdf', $detail->id)}}">Download</button> -->
+<a href="{{ route('downloadPdf', $detail->id)}}" class="btn btn-info btn-sm downloadPdfFile" target="_blank">Download</a>
 <table class="table table-bordered">
     <thead>
       <tr>
@@ -22,8 +24,8 @@
         <td>{{$detail->phone_number}}</td>
       </tr>
       <tr class="success">
-        <td>Email</td>
-        <td>{{$detail->email}}</td>
+        <td>Special Request</td>
+        <td>{{$detail->special_request}}</td>
       </tr>
       @if($promo)
       <tr class="success">
@@ -43,7 +45,8 @@
           <thead>
               <tr>
                 <th>S.N.</th>
-                <th>Room</th>
+                <th>Room </th>
+                <th>No. of rooms</th>
                 <th>CheckIn</th>
                 <th>CheckOut</th>
                 <th>Price</th>
@@ -61,12 +64,13 @@
               $date_diff=$formatted_dt1->diffInDays($formatted_dt2);
             ?>
             <?php
-              $total=$booking->price*$date_diff;
+              $total=$booking->price*$date_diff*$booking->number_of_rooms;
               $sum+=$total;
             ?>
             <tr class="success">
               <td>{{$key+1}}</td>
-              <td>{{$booking->room->name}}</td>
+              <td>{{$booking->roomType->name}}</td>
+              <td>{{$booking->number_of_rooms}}</td>
               <td>{{$booking->checkIn_date}}</td>
               <td>{{$booking->checkOut_date}}</td>
               <td>{{$booking->price}}</td>
@@ -97,7 +101,7 @@
             </tr>
             @else
             <tr class="success">
-              <td colspan="5">total</td>
+              <td colspan="6">total</td>
               
               <td>{{$total}}</td>
             </tr>

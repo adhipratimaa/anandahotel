@@ -18,6 +18,7 @@ Route::group(['namespace'=>'Admin'],function(){
 
 Route::group(['namespace'=>'Admin','middleware'=>['auth'],'prefix'=>'admin'],function(){
 	Route::resource('dashboard','DashboardController');
+	Route::resource('setting','SettingController');
 	Route::get('logout','LoginController@Logout')->name('logout');
 	Route::resource('room-type-image','RoomTypeImageController');
 	Route::resource('room-type','RoomTypeController');
@@ -36,7 +37,15 @@ Route::group(['namespace'=>'Admin','middleware'=>['auth'],'prefix'=>'admin'],fun
 	Route::resource('team','TeamController');
 	Route::resource('page','PageController');
 	Route::resource('booking','BookingController');
+	Route::get('/downloadPdf/{id}', 'BookingController@downloadPdf')->name('downloadPdf');
 	Route::resource('promo','PromoController');
+	Route::resource('user','UserController');
+	Route::resource('gallery','GalleryController');
+	Route::post('gallery-image','GalleryController@gallery')->name('galleryimage');
+	Route::post('crop-image','GalleryController@crop')->name('crop');
+	Route::post('jcrop-process','GalleryController@postJcrop')->name('jcropprocess');
+	Route::post('gallery-update/{id}','GalleryController@galleryUpdate')->name('galleryUpdate');
+	Route::post('remove-image','GalleryController@removeimage')->name('removeImage');
 	Route::post('GetCustomDateRoomBooking','BookingController@GetCustomDateRoomBooking')->name('GetCustomDateRoomBooking');
 	Route::get('booked-history','BookingController@bookedHistory')->name('bookedHistory');
 });
@@ -69,5 +78,22 @@ Route::group(['namespace'=>'Front'],function(){
 	Route::post('save-booking','DefaultController@saveBooking')->name('saveBooking');
 	Route::post('filter-by-category','DefaultController@filterByCategory')->name('filterByCategory');
 	Route::post('filter-by-price','DefaultController@filterByPrice')->name('filterByPrice');
+	Route::get('room','DefaultController@room')->name('room');
+	Route::get('other-service/{slug}','DefaultController@allServices')->name('allServices');
+	// Route::get('services','DefaultController@allServices')->name('allServices');
+	Route::get('service-detail/{slug}','DefaultController@serviceDetail')->name('serviceDetail');
+	// Route::get('blog/{slug}','DefaultController@blogInner')->name('blogInner');
+	Route::get('gallery','DefaultController@allGalleries')->name('allGalleries');
+	Route::get('gallery/{id}','DefaultController@galleryInner')->name('galleryInner');
+
+
+	Route::get('accomodation/{slug}','DefaultController@roomDetail')->name('roomDetail');
+	// Route::get('roomDetail','DefaultController@roomDetail')->name('roomDetail');
+
+	Route::get('accomodation','DefaultController@accomodation')->name('accomodation');
+	Route::get('roomTypeImage/{id}','DefaultController@roomTypeImage')->name('roomTypeImage');
+    Route::get('book-now','DefaultController@bookNow')->name('bookNow');
+    Route::get('thank-you','DefaultController@thankYou')->name('thankYou');
 	Route::get('/{slug}','DefaultController@page')->name('page');
+
 });

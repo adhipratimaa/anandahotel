@@ -1,4 +1,100 @@
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1170px;
+    }
+}
+
+
+@media (max-width:1250px) {
+    
+    nav ul li a {
+        
+        font-size:11px;
+    }
+    
+    /*.book__button {*/
+        
+    /*margin-right: 0;*/
+    /*position: fixed;*/
+    /*top: 130px;*/
+    /*display: block;*/
+    /*right: 0;*/
+    /*}*/
+}
+
 @media screen and (max-width:1200px) {
+    
+    .small-screen {
+    display: flex !important;
+    }
+    
+    .desktop-burger-menu {
+    display: none;
+    }
+    .sticky nav {
+        
+        display:block;
+    }
+    .dropdown_menu{
+        
+        background:transparent;
+        padding:0;
+    }
+    
+    .top-info-wrapper {
+        
+        display:none;
+    }
+    
+    .dropdown_menu li a,
+    nav ul li a {
+        display: block;
+        padding: 10px;
+        border-bottom:1px solid #f2f2f2;
+        color:#fff;
+        margin:0;
+    }
+    
+    .sticky .dropdown_menu li a {
+        
+        padding:10px;
+    }
+    
+    .sticky nav ul li a {
+    font-size: 13px;
+    padding: 10px;
+    text-transform: capitalize;
+    font-weight: 400;
+    }
+    
+     .top-menu-bar {
+        display: block;
+    }
+    .main-navigation {
+        position: fixed;
+        top: 0;
+        background: #29993e;
+        width: 100%;
+        z-index: 9;
+        right: -100%;
+        height: 100%;
+        transition: 500ms;
+        overflow-x: scroll;
+    }
+    .main-navigation.open {
+        right: 0;
+    }
+    nav ul li,
+    .navigation__wrapper {
+        display: block;
+    }
+    
+    
+    .more_feature_wrapp, .dropdown_wrapper {
+        position: static;
+        max-height: inherit;
+    }
+    
     .client-image {
         height: 130px !important;
         width: 130px !important;
@@ -11,9 +107,80 @@
         width: max-content;
         width: 100%;
     }
+
+    .container {
+
+        max-width: 1170px;
+    }
 }
 
 @media screen and (max-width:992px) {
+    .book__button,
+    .book_form_slide,
+    .book__button {
+        
+        display:none !important;
+    }
+    
+    .check_in_out::before {
+    left: 25px;
+    }
+
+    .sticky nav ul li a {
+
+        padding: 10px;
+    }
+
+    .more_feature_wrapp,
+    .dropdown_wrapper {
+
+        position: static;
+        max-height: inherit;
+    }
+
+    .navigation__wrapper {
+
+        display: block;
+    }
+
+    .dropdown_menu {
+
+        padding: 0;
+        background: transparent;
+    }
+
+    .sticky nav ul li a,
+    nav ul li a {
+
+        margin: 0;
+        padding: 10px;
+        text-transform: capitalize;
+        border-color: #d0d0d0;
+        color: #efefef;
+        
+    }
+    .sticky .dropdown_menu li a,
+    .dropdown_menu li a {
+
+        color: #efefef;
+        padding: 10px;
+    }
+
+    .desktop-burger-menu {
+
+        display: none;
+    }
+
+    .front-service-list ul {
+
+        column-count: 3;
+    }
+
+    .sticky .top-info-wrapper {
+
+        height: auto;
+        overflow: visible;
+    }
 
     .add-room-form {
        
@@ -157,6 +324,7 @@
     section.room-booking-form-sec.fixed {
         display: none;
     }
+    .package-image-side,
     .room-top-image {
         margin-bottom: 20px !important;
     }
@@ -166,6 +334,31 @@
 }
 
 @media screen and (max-width:767px) {
+    
+    .book_form_slide .room-booking-form .row .padding-wrapp {
+        
+        margin-bottom:10px;
+    }
+
+    .room-facility-wrapper ul li p {
+
+        font-size: 11px;
+    }
+
+    .room-facility-wrapper ul li img {
+
+        height: 18px;
+    }
+
+    .packge-content-side p {
+
+        font-weight: 400;
+    }
+
+    .front-service-list ul {
+
+        column-count: 2;
+    }
 
     .testi_slider .slides .item:nth-child(even) .testi-page-wrapper .testimonial-page-content,
     .testi-page-wrapper {
@@ -220,11 +413,7 @@
         height: 100%;
         width: 100%;
     }
-    /* .new-room-includes-wrapp,
-    .new-room-includes-wrapp {
-
-        padding-top: 0 !important;
-    } */
+ 
     .other-room-title-wrapper h2,
     .blog-top-title h2,
     .room-slider-content h2,
@@ -296,6 +485,15 @@
 }
 
 @media screen and (max-width:480px) {
+    
+    .book_form_slide {
+        
+        width:300px;
+    }
+    
+    
+    
+    
     .room-detail-slider ul li figure {
         height: 300px !important;
     }
@@ -327,6 +525,11 @@
 
 
 @media (max-width:425px) {
+
+    .front-service-list ul{
+
+        column-count: 1;
+    }
 
 
 

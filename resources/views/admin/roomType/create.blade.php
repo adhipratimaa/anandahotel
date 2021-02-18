@@ -44,6 +44,11 @@
                         <label>Title</label>
                         <input type="text" name="name" class="form-control" value="{{old('name')}}">
                     </div>
+
+                    <div class="form-group">
+                        <label>Slug</label>
+                        <input type="text" name="slug" class="form-control" value="{{old('slug')}}">
+                    </div>
                     
                     <div class="form-group select-member">
                         <label>Select Features</label>
@@ -55,7 +60,7 @@
                     </div>
                     <div class="form-group">
                         <label>Room Capacity</label>
-                        <input type="text" name="room_capacity" class="form-control" value="{{old('room_capacity')}}">
+                        <input type="number" name="room_capacity" class="form-control" value="{{old('room_capacity')}}">
                     </div>
                     <div class="form-group">
                         <label>Price</label>
@@ -63,11 +68,15 @@
                     </div>
                     <div class="form-group">
                         <label>Image</label>
-                        <input type="file" name="image" class="form-control" value="">
+                        <input type="file" name="image" class="form-control" value="" multiple id="upload_file">
                     </div>
                     <div class="form-group">
                         <label>Short Description</label>
                         <textarea class="form-control" name="short_description" rows="3">{{old('short_description')}}</textarea>
+                    </div>
+                     <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" name="description" rows="3">{{old('description')}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="publish"><input type="checkbox" id="publish" name="publish" checked> Publish</label>
@@ -115,6 +124,17 @@
     });
     $('.message').fadeOut(3000);
     $(".members").select2();
+    </script>
+    <script>
+    CKEDITOR.replace('description');
+    CKEDITOR.config.height = 200;
+    $('#datepicker').datepicker({
+    autoclose: true,
+    format: 'yyyy-mm-dd'
+  });
+
+    $('#timepicker1').timepicker();
+    $('.message').delay(5000).fadeOut(400);
     </script>
 
 @endpush

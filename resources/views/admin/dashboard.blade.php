@@ -1,4 +1,4 @@
-@extends('layouts.admin')	
+@extends('layouts.admin') 
 @section('title','Dashboard')
 @push('admin.styles')
 <!-- Date Picker -->
@@ -8,83 +8,125 @@
 <!-- bootstrap wysihtml5 - text editor -->
 @endpush
 @section('content')
+
 <section class="content-header">
-	<h1>Dashboard<small></small></h1>
-	
+  <h1>Dashboard<small></small></h1>
+    @if(Session::has('message'))
+    <div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {!! Session::get('message') !!}
+    </div>
+    @endif
+    @if (count($errors) > 0)
+    <div class="alert alert-danger message">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      <ul>
+        @foreach($errors->all() as $error)
+        <li>{{$error}}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
+
+  
+  
 </section>
 <div class="content">
-<form method="post" action="{{route('dashboard.update',$detail->id)}}" enctype="multipart/form-data">
-  {{csrf_field()}}
-  <input type="hidden" name="_method" value="PUT">
-  <div class="row">
-      	<div class="col-md-8">
-          	<div class="box box-primary">
-              	<div class="box-header with-heading">
-                  <h3 class="box-title">Contacts</h3>
-              	</div>
-              	<div class="box-body">
-					<div class="form-group">
-						<label>Address</label>
-						<input type="text" name="address" class="form-control" value="{{$detail->address}}">
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" name="phone" class="form-control" value="{{$detail->phone}}">
-					</div>
-					<div class="form-group">
-						<label>Email</label>
-						<input type="text" name="email" class="form-control" value="{{$detail->email}}">
-					</div>
-					
-					<div class="form-group">
-						<label>About Us</label>
-						<textarea id="about_us_description" name="about_us_description" class="form-control" maxlength="250">{{$detail->about_us_description}}</textarea>
-					</div>
-					
-					<div class="form-group">
-					   <label>video Link</label>
-					   <input type="text" name="video" class="form-control" value="{{$detail->video}}">
-					   
-					</div>
-					
-					
-              	</div>  
-          	</div>
-          	
-      	</div>
-      	<div class="col-md-4">
-      		
-			
-      		<div class="box box-warning">
+  <div class="col-md-4 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-aqua">
+      <div class="inner">
+        
+        <h3>{{count($teams)}}</h3>
 
-				<div class="box-header with-heading">
-					<h3 class="box-title">Social Network</h3>
-				</div>
-				<div class="box-body">
-					<div class="form-group">
-						<label>Facebook Link</label>
-						<input type="text" name="facebook" class="form-control" value="{{$detail->facebook}}">
-					</div>
-					<div class="form-group">
-						<label>Twitter Link</label>
-						<input type="text" name="twitter" class="form-control" value="{{$detail->twitter}}">
-					</div>
-					
-					<div class="form-group">
-						<label>Instagram Link</label>
-						<input type="text" name="instagram" class="form-control" value="{{$detail->instagram}}">
-					</div>
-					<div class="form-group">
-				    	<input type="submit" name="" class="btn btn-success">
-				    </div>
-				</div>
-			</div>
-			
-      	</div>
-
+        <p>Teams</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-pie-graph"></i>
+      </div>
+      <a href="{{route('team.index')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
   </div>
-</form>  
+ 
+   <div class="col-md-4 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-fuchsia">
+      <div class="inner">
+        
+        <h3>{{count($services)}}</h3>
 
+        <p>Services</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-person-stalker"></i>
+      </div>
+      <a href="{{route('service.index')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-md-4 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-green">
+      <div class="inner">
+        
+        <h3>{{count($rooms)}}</h3>
+
+        <p>Rooms</p>
+      </div>
+      <div class="icon">
+        <i class="ion-android-arrow-dropright-circle"></i>
+      </div>
+      <a href="{{route('room.index')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+
+   <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Data Table</h3>
+        </div>
+        <div class="box-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>S.N.</th>
+                <th>name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Special Request</th>
+                <!--<th>Action</th>-->
+              </tr>
+            </thead>
+            <tbody>
+            @foreach($customers as $key=>$customer)
+            <tr>
+              <td>{{$key+1}}</td>
+              <td>{{$customer->first_name}} {{$customer->last_name}}</td>
+              <td>{{$customer->email}}</td>
+              <td>{{$customer->phone_number}}</td>
+              <td>{{$customer->special_request}}</td>
+              <!--<td>-->
+                <!--<a href="" class="btn btn-info view" data-id="{{$customer->id}}">View</a>-->
+              <!--</td>-->
+            </tr>
+            @endforeach
+            </tbody>
+          </table>
+
+          
+                      <a href="{{route('bookedHistory')}}" class="btn btn-info btn-sm btn-rounded"></i>View More</a>
+
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
 </div>
 @endsection
 @push('script')
@@ -99,12 +141,29 @@
   <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
   <!-- datepicker -->
   <script>
-  	// CKEDITOR.replace('about_us');
-   //  CKEDITOR.config.height = 200;
+    CKEDITOR.replace('donation_detail');
+    CKEDITOR.config.height = 200;
     $(document).ready(function () {
-        $( "#my-editor" ).accessibleCharCount();
-        $( "#contact_us_description" ).accessibleCharCount();
+        $( "#input-field-demo" ).accessibleCharCount()
      });
-  	
+    
     </script>
+    <script >
+  	$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(document).ready(function(){
+       $('.message').fadeOut(3000);
+       $('.delete').submit(function(e){
+        e.preventDefault();
+        var message=confirm('Are you sure to delete');
+        if(message){
+          this.submit();
+        }
+        return;
+       });
+    });
+  </script>
 @endpush

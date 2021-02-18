@@ -45,6 +45,11 @@
                         <label>Title</label>
                         <input type="text" name="name" class="form-control" value="{{$detail->name}}">
                     </div>
+
+                    <div class="form-group">
+                        <label>Slug</label>
+                        <input type="text" name="slug" class="form-control" value="{{$detail->slug}}">
+                    </div>
                    
                     <div class="form-group select-member">
                         <label>Select Features</label>
@@ -73,6 +78,10 @@
                     <div class="form-group">
                         <label>Short Description</label>
                         <textarea class="form-control" name="short_description" rows="3">{{$detail->short_description}}</textarea>
+                    </div>
+                     <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" name="description" rows="3">{{$detail->description}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="publish"><input type="checkbox" id="publish" name="publish" {{$detail->publish==1?'checked':''}}> Publish</label>
@@ -120,6 +129,17 @@
     });
     $('.message').fadeOut(3000);
     $(".members").select2().val({!! json_encode($detail->features()->pluck('feature_id')) !!}).trigger('change');
+    </script>
+     <script>
+    CKEDITOR.replace('description');
+    CKEDITOR.config.height = 200;
+    $('#datepicker').datepicker({
+    autoclose: true,
+    format: 'yyyy-mm-dd'
+  });
+
+    $('#timepicker1').timepicker();
+    $('.message').delay(5000).fadeOut(400);
     </script>
 
 @endpush

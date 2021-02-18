@@ -43,12 +43,31 @@
 						<label>Title(required)</label>
 						<input type="text" name="title" class="form-control" value="{{old('title')}}">
 					</div>
+
+					<div class="form-group">
+                        <label>Slug</label>
+                        <input type="text" name="slug" class="form-control" value="{{old('slug')}}">
+                    </div>
+
+                    <div class="form-group">
+						<label>Category</label>
+		    	 			<select type="text" name="category" class="form-control">
+		    	 				<option value="packages">Packages</option>
+								<option value="dining">Dining</option>
+								<option value="meeting_and_conference">Meeting and Conference</option>
+		    	 				<option value="none">None</option>
+
+							</select>
+					</div>
 					
 					
 					<div class="form-group">
 						<label>Description(required)</label>
 						<textarea id="my-editor" name="description" class="form-control">{{old('description')}}</textarea>
 					</div>
+					<div class="form-group">
+						<label for="show_in_menu"><input type="checkbox" id="show_in_menu" name="show_in_menu" checked>Show as primary menu?</label>
+				    </div>
 				</div>
 			</div>
 		</div>
@@ -57,18 +76,18 @@
 				<div class="box-header with-heading">
 					<h3 class="box-title">Image</h3>
 				</div>
-				<div class="box-body">
+				<!-- <div class="box-body">
 					<div class="form-group">
 					   <label>logo(250*250)</label>
 					   <input type="file" name="logo" class="form-control">
 					</div>
-				</div>
-				<!-- <div class="box-body">
+				</div> -->
+				<div class="box-body">
 					<div class="form-group">
 					   <label>Upload Image(2000*2000)</label>
 					   <input type="file" name="image" class="form-control">
 					</div>
-				</div> -->
+				</div>
 			</div>
 			<div class="box box-warning">
 				<div class="box-header with-heading">

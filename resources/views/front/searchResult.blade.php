@@ -2,18 +2,25 @@
 @section('content')
 <link rel="stylesheet" type="text/css" href="{{asset('front/css/inner.css')}}">
 
+<style>
+    .book__button {
+        
+        display:none;
+    }
+</style>
+
 
 
 
 
 <section class="room-display-page">
-    <div class="room-top-image" style="background-image:url({{asset('front/images/cafe-1.jpg')}}">
+    {{--<div class="room-top-image" style="background-image:url({{asset('front/images/cafe-1.jpg')}}">
         <div class="container">
             <div class="room-display-title title-wrapper">
                 <h2>Ananda Hotel</h2>
             </div>
         </div>
-    </div>
+    </div>--}}
        <div class="container">
             @if (count($errors) > 0)
             <div class="alert alert-danger error message">
@@ -31,10 +38,9 @@
 
         
     @include('front.include.formInner')
-    <div class="room_message"><div class="container">
-        <div class="roommsg">
-        choose your room 1
-    </div>
+    <div class="room_message">
+        choose your room
+
     </div>
 
 
@@ -56,41 +62,113 @@
                     <div class="room-display-listing">
                         
                         <div class="room-option">
-                            @foreach($all_rooms as $room)
                             <div class="row room-option-parent">
-                                <div class="col-lg-4 col-md-4 col-12 pl-0">
+                                @foreach($roomTypes as $room)
+
+                                <div class="col-lg-4 col-md-6 col-12 all-room-wrapp">
                                     <div class="option-image-wrapp">
                                         <img src="{{asset('images/thumbnail/'.$room->image)}}">
                                         <h3>{{$room->name}}</h3>
                                     </div>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-12 pl-0">
-                                   <div class="room-option-wrapper">
-                                        <div class="option-info-wrapp">
-                                            <div class="option-left">
-                                                <p>{{str_limit($room->short_description,200)}}</p>
+                                     <div class="option-right">
+                                        <a class="expand-room-detail site-btn addRoom " href="javascript:;" data-other-images="{{ @$room->images}}" data-facilities="{{@$room->features}}"  data-item="{{ @$room}}">View Room</a>
+                                        <button class="site-btn addRoom" id="addRoom_{{$room->id}}" data-id="{{$room->id}}" >Select Room</button>
+                                    </div>
+                                     </div>
+                                @endforeach
+                                     <div class="modal-wrapper">
+                                        <div class="modal">
+                                            <div class="head">
+                                                <a class="btn-close trigger" href="javascript:;"></a>
                                             </div>
-                                            <div class="option-right">
-                                                <span class="rate">Rs.{{$room->price}}</span>
-                                                <p>Price for 1 Night</p>
-                                                <ul>
+                                            <div class="content">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-12 col-12">
+                                                        <div class="modal-image" id="roomImage">
+                                                            
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                      
+                                                  
+                                                    
+                                                    <div class="col-lg-6 col-md-12 col-12">
+                                                        <div class="modal-content-wrapp">
+                                                            <!--<h2 class="roomItemTitle"></h2>-->
+                                                            <p class="roomItemPrice"></p>
+                                                            <p class="roomItemDescription"></p>
+                                                            
+                                                            <div class="col-12">
+                                                                
+                                                    
+                                                    </div>
+                                                            
+                                                            <!--<p>A tasteful blend of luxury and the warm heritage of Nepali hospitality.</p>-->
+                                                            <!--<ul>-->
+                                                            <!--    <li> Daily Newspaper</li>-->
+                                                            <!--    <li> Mini Bar</li>-->
+                                                            <!--    <li>Iron + board</li>-->
+                                                            <!--</ul>-->
+                                                            <!--<h3>Maximum occupancy</h3>-->
+                                                            <!--<p>5 Persons</p>-->
+                                                            <!--<h3>Digital appliances</h3>-->
+                                                            <!--<p>Cable Movie Channel, Satellite TV, Television, WiFi, Free WiFi, LED TV</p>-->
+                                                            <!--<h3>Amenities</h3>-->
+                                                            <!--<p>Air conditioning, Alarm clock, Bathrobe, Coffee maker, Daily Newspaper, Direct dial phone, Extra bed, Fountain/Garden View, Mini Bar, Safety box, Trouser press, Parking, Refrigerator, Iron + board, Dressing, Tea and coffee maker, Iron and Board (On request), Work desk, Slippers, Parquet, Comforter, Turn down service, Smoking rooms available</p>-->
+                                                            <!--<h3>Bedding options</h3>-->
+                                                            <!--<p>Double+Single, Double+baby COT, Queen, Single, Single x 2, Single x 3, Twin, Twin + Extra Bed, Twin and extra bed, Twin+baby COT</p>-->
+                                                            <!--<h3>Bathroom</h3>-->
+                                                            <!--<p>Hair dryer, Private Bathroom & WC, Walk-in shower, Shower, Bathtub, Weighing scale</p>-->
+                                                            <!--<h3>Surface area</h3>-->
+                                                            <!--<p>20 m</p>-->
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                  
+                                                </div>
+                                               
+                                            </div>
+                                             <div class="room-facility-wrapper">
+                                                        <h3>Room Facility</h3>
+                                                        <ul id="featuresListing">
+                                                           
+                                                            
+                                                        
+                                                           
+                                                        </ul>
+                                                    </div>
+                                        </div>
+                                    </div>
+                               
+
+                                <!--<div class="col-lg-8 col-md-8 col-12 pl-0">-->
+                                <!--   <div class="room-option-wrapper">-->
+                                <!--        <div class="option-info-wrapp">-->
+                                <!--            <div class="option-left">-->
+                                <!--                <p>{{str_limit($room->short_description,200)}}</p>-->
+                                <!--            </div>-->
+                                <!--            <div class="option-right">-->
+                                <!--                <span class="rate">Rs.{{$room->price}}</span>-->
+                                <!--                <p>Price for 1 Night</p>-->
+                                <!--                <ul>-->
                                                     <!-- <li>1 Adult,0 Child,1 Room</li> -->
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="option-book option-info-wrapp">
-                                            <div class="option-left">
+                                <!--                </ul>-->
+                                <!--            </div>-->
+                                <!--        </div>-->
+                                <!--        <div class="option-book option-info-wrapp">-->
+                                <!--            <div class="option-left">-->
                                                 <!-- <p class="room-option-info"><i class="fa fa-plus-circle" aria-hidden="true"></i>Room Info</p> -->
-                                            </div>
-                                            <div class="option-right">
-                                                <button class="site-btn addRoom" id="addRoom_{{$room->id}}" data-id="{{$room->id}}" >Select Room</button>
+                                <!--            </div>-->
+                                <!--            <div class="option-right">-->
+                                <!--                <button class="site-btn addRoom" id="addRoom_{{$room->id}}" data-id="{{$room->id}}" >Select Room</button>-->
                                                 <!-- <a href="final-room.php" class="site-btn">Check out</a> -->
-                                            </div>
-                                        </div>
-                                   </div>
-                                </div>
+                                <!--            </div>-->
+                                <!--        </div>-->
+                                <!--   </div>-->
+                                <!--</div>-->
                             </div>
-                            @endforeach
                             
                         </div>
                     </div>
@@ -106,13 +184,14 @@
                             </span>
                         </div>
                         <div class="append">
+                            <div class="remove">
                             @if(isset($cart))
                             @php($sum=0)
                             @foreach($cart as $cart)
-                                <div class="sidebar-room" id="selectedRoom-{{$cart['id']}}">
+                                <div class="sidebar-room" id="selectedRoom-{{$cart['id']}}" data-numberofrooms="{{$cart['number_of_rooms']}}">
                                     <span class="delete-btn removeButton" data-id="{{$cart['id']}}"><i class="fa fa-trash" aria-hidden="true"></i></span>
                                     <div class="sidebar-title-wrapper">
-                                        <h3>{{$cart['name']}}</h3> <span>{{$cart['price']*session()->get('date_diff')}}</span>
+                                        <h3>{{$cart['name']}}</h3> <span>{{$cart['price']*session()->get('date_diff')*$cart['number_of_rooms']}}</span>
                                     </div>
                                    <!--  <ul>
                                         <li><p>Included: Service Charge</p><span>$.500.00</span></li>
@@ -122,12 +201,12 @@
                                     </ul> -->
                                 </div>
                             <?php
-                            $total= $cart['price']*session()->get('date_diff');
+                            $total= $cart['price']*session()->get('date_diff')*$cart['number_of_rooms'];
                             $sum+=$total;
                             ?>
                             @endforeach
                             @endif
-
+                            </div>
                         </div>
                         @if($promo_code)
                         <div class="total">
@@ -147,6 +226,8 @@
 
                             
                         </div>
+                        <form id="newform" enctype="multipart/form-data" method="post">
+                                {{csrf_field()}}
                         <div class="check-btn-wrapper">
                             <a class="add-room-btn addNewRoom" href="#">Add Room</a>
                             <div class="no_of_rooms d-none">
@@ -160,8 +241,7 @@
                                 </div>
                             </div>
 
-                            <form id="newform" enctype="multipart/form-data" method="post">
-                                {{csrf_field()}}
+                            
                             <div class="number add-room-form" id="numberofpeople">
                                 
                                <!-- <div class="new_room_wrapper">
@@ -198,7 +278,7 @@
                             </div>
                             
                             </form>
-                            <a class="site-btn next-btn" href="{{route('checkOutForm')}}">Check Out</a>
+                            <a class="site-btn next-btn" href="{{route('checkOutForm')}}">Confirm</a>
                         </div>
                     </div>
                 </div>
@@ -212,6 +292,7 @@
 <script type="text/javascript">
     var promo_code = <?php echo json_encode($promo_code);?>;
     var days = <?php echo json_encode(session()->get('date_diff'));?>;
+    var number_of_rooms=<?php echo json_encode($number_of_rooms);?>;
     console.log(days);
 
     $.ajaxSetup({
@@ -225,43 +306,73 @@
           no_of_selected_room=$('.sidebar-room').length;
 
     });
+    
+       $(document).on('click','.removeButton',function(){
+            id=$(this).data('id');
+            
+            $.ajax({
+                url:"{{route('removeRoom')}}",
+                data:{id:id},
+                method:"post",
+                success:function(data){
+                    console.log(data);
+                    if(data.message){
+                        console.log(data.sum);
+                        $('#selectedRoom-'+id).remove();
+                        $('#total').html(data.sum);
+                    }
+                    // if($('.room-1').length==0){
+                    //     $('#total').html('');
+                    // }
+                    no_of_selected_room=data.number_of_rooms;
+
+                    content = "choose your room no "+(parseInt(no_of_selected_room)+1);
+                    $('.room_message').html("");
+                    $('.room_message').html(content);
+                }
+            });
+
+        })
 
     $(document).ready(function(){
-        var number_of_rooms=<?php echo json_encode($number_of_rooms);?>;
+        
         //adding selected room to cart or checkout form
         $(document).on('click','.addRoom',function(){
             id=$(this).data('id');
+                
             
-            if($('#selectedRoom-'+id).length>0){
-                alert('room already added');
-            }else{
                 $.ajax({
                     method:"post",
                     url:"{{route('getDataOfSingleRoom')}}",
                     data:{id:id},
                     success:function(data){
-                        console.log(data)
-                        if(data.status){
+                        console.log(data);
+                        if(data.message == 'success'){
+                            console.log(data.number_of_rooms);
+                            $('.remove').remove();
                             $('.append').append(data.html);
                             total = 'Rs . '+data.sum;
                             no_of_selected_room=$('.sidebar-room').length;
-                            if(no_of_selected_room==data.number_of_rooms){
-                                content = "please checkout";
+                            if(data.number_of_rooms==number_of_rooms){
+                                $('.room_message').addClass('d-none');
+                                content = "";
                             }else{
-                                content = "choose your room no "+(no_of_selected_room+1);
+                                $('.room_message').removeClass('d-none');
+                                content = "choose your room no "+(data.number_of_rooms+1);
                             }
                            
                             $('.room_message').html("");
                             $('.room_message').html(content);
                             
                             $('#total').html(total);
-                        }else{
+                        }
+                        if(data.message=='fail'){
                             alert('please add room');
                         }
                         
                     }
                 });
-            }
+            
             
         });
     });
@@ -415,16 +526,18 @@
                 data:{id:id},
                 method:"post",
                 success:function(data){
-                    
+                    console.log(data);
                     if(data.message){
+                        console.log(data.sum);
                         $('#selectedRoom-'+id).remove();
+                        $('#total').html(data.sum);
                     }
-                    if($('.room-1').length==0){
-                        $('#total').html('');
-                    }
-                    no_of_selected_room=$('.sidebar-room').length;
+                    // if($('.room-1').length==0){
+                    //     $('#total').html('');
+                    // }
+                    no_of_selected_room=data.number_of_rooms;
 
-                    content = "choose your room no "+(no_of_selected_room+1);
+                    content = "choose your room no "+(parseInt(no_of_selected_room)+1);
                     $('.room_message').html("");
                     $('.room_message').html(content);
                 }
@@ -632,20 +745,33 @@
     $(document).ready(function(){
         $('.applyButton').click(function(e){
             e.preventDefault();
+
             $.ajax({
                 method:"post",
                 url:"{{route('addPeopleData')}}",
                 data:$('#newform').serialize(),
                 success:function(data){
                     console.log(data);
-                    $('.room-1').remove();
-                    $('.no_of_rooms').addClass('d-none');
-                    $('.applyButton').addClass('d-none');
-                    $('.no_of_rooms').addClass('d-none');
-                    no_of_selected_room=$('.sidebar-room').length;
-                    content = "choose your room no "+(no_of_selected_room+1);
-                    $('.room_message').html("");
-                    $('.room_message').html(content);
+                    if(data=='success'){
+                        $('.room-1').remove();
+                        $('.no_of_rooms').addClass('d-none');
+                        $('.applyButton').addClass('d-none');
+                        $('.no_of_rooms').addClass('d-none');
+                        $('.number_of_rooms').val(0);
+                        no_of_selected_room=$('.sidebar-room').length;
+                        $('.room_message').removeClass('d-none');
+                        content = "choose your room no "+(parseInt(number_of_rooms)+1);
+                        number_of_rooms = parseInt(number_of_rooms)+1;
+                        $('.room_message').html("");
+                        $('.room_message').html(content);
+                    }else{
+                        $('.room-1').remove();
+                        $('.no_of_rooms').addClass('d-none');
+                        $('.applyButton').addClass('d-none');
+                        $('.no_of_rooms').addClass('d-none');
+                        $('.number_of_rooms').val(0);
+                    }
+                    
                     
                            
                             

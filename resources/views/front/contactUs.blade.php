@@ -39,17 +39,17 @@
                             <li>
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                                 <h3>Address</h3>
-                                <p>{{$dashboard_composer->address}}</p>
+                                <p>{{$dashboard_setting->address}}</p>
                             </li>
                             <li>
                                 <i class="fa fa-phone" aria-hidden="true"></i>
                                 <h3>Call Us</h3>
-                                <p>{{$dashboard_composer->phone}}</p>
+                                <p>{{$dashboard_setting->phone}}</p>
                             </li>
                             <li>
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
                                 <h3>Email</h3>
-                                <a href="#">{{$dashboard_composer->email}}</a>
+                                <a href="#">{{$dashboard_setting->email}}</a>
                             </li>
                         </ul>
                     </div>
@@ -69,8 +69,6 @@
                             <label>Message</label>
                             <textarea name="message"></textarea>
                             <input type="submit" name="Send Message" class="site-btn" value="Send Message">
-                            
-                            
                         </form>
                     </div>
                 </div>

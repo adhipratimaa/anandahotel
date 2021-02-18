@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Room\RoomRepository;
 use Carbon\Carbon;
 use App\Repositories\Customer\CustomerRepository;
-
+use PDF;
 class BookingController extends Controller
 {
     public function __construct(RoomRepository $room,CustomerRepository $customer){
@@ -61,9 +61,23 @@ class BookingController extends Controller
      */
     public function show($id)
     {
+        // dd($id);
         $detail=$this->customer->find($id);
         
         return view('admin.room.view')->with('detail',$detail);
+    }
+
+    public function downloadPdf(Request $request, $id){
+        $detail=$this->customer->find($id);
+        // dd($detail);
+        $slug = \Str::slug($detail->first_name.'-'.$detail->last_name);
+        // dd($slug);
+        $pdf = PDF::loadview('admin.room.customer-detail-pdf', 
+        compact( 'detail'));
+        // )->setPaper('A4');
+        // dd($pdf);
+        return $pdf->stream($slug.'.pdf');
+        // return $pdf->stream('customer-detail.pdf');
     }
 
     /**
@@ -157,6 +171,7 @@ class BookingController extends Controller
     }
     public function bookedHistory(){
         $customers = $this->customer->orderBy('created_at','desc')->get();
+        // dd($customers);
         return view('admin.room.bookedHistory',compact('customers'));
     }
 }

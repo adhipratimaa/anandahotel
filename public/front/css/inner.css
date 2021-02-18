@@ -573,6 +573,25 @@ section.inner-page-form .room-booking-form .padding-wrapp .main-nav,
     padding: 20px 0;
 }
 
+.blog-detail-content ul {
+
+    padding-left: 20px;
+}
+
+.blog-detail-content a {
+
+
+    font-weight: 600;
+}
+
+
+.blog-detail-content ul li {
+
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
 .blog-detail-content h3 {
     font-size: 25px;
     margin-bottom: 15px;
@@ -737,8 +756,8 @@ section.inner-page-form .room-booking-form .padding-wrapp .main-nav,
 }
 
 .room-slider-content h2 {
-    font-size: 35px;
-    font-weight: 800;
+    font-size: 25px;
+    font-weight: 700;
     margin-bottom: 20px;
 }
 
@@ -765,22 +784,24 @@ section.inner-page-form .room-booking-form .padding-wrapp .main-nav,
 }
 
 .room-facility-wrapper ul li {
-    display: inline-block;
+    /*display: inline-block;*/
     list-style: none;
     margin: 10px;
 }
 
 .room-facility-wrapper ul li img {
-    height: 25px;
+    height: 20px;
     width: auto;
     margin-right: 8px;
+    display: inline-block;
 }
 
 .room-facility-wrapper ul li p {
     display: inline-block;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
     color: #5d5858;
+    margin:0;
 }
 
 .room-detail-title h3 {
@@ -1600,6 +1621,8 @@ section.inner-page-form .room-booking-form .padding-wrapp .main-nav,
 .check-btn-wrapper a {
     padding: 10px 20px;
     margin: 0;
+    font-size:14px;
+    max-width:none;
 }
 
 .add-room-form {
@@ -1609,6 +1632,11 @@ section.inner-page-form .room-booking-form .padding-wrapp .main-nav,
     max-height: 200px;
     overflow: auto;
     right: -40px;
+}
+
+.room-1 {
+    
+    border-radius:0;
 }
 
 .applyButton {
@@ -1623,8 +1651,7 @@ section.inner-page-form .room-booking-form .padding-wrapp .main-nav,
     font-weight: 600;
     letter-spacing: 1px;
     /* border-radius: 5px; */
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+   
 }
 
 
@@ -2190,7 +2217,7 @@ section.room-display-page {
 .final-room-details h4,
 .final-hotel-info-wrapp h4 {
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .final-hotel-info-wrapp ul li span {
@@ -2201,12 +2228,14 @@ section.room-display-page {
 }
 
 .final-room-details ul li p {
-    font: 14px;
+    font-size: 13px;
     color: #676767;
+    
 }
 
 .final-hotel-info {
     border: 1px solid #cccccc;
+    margin-bottom:20px;
 }
 
 .final-hotel-info-wrapp ul li p a {
@@ -2222,6 +2251,8 @@ section.room-display-page {
     display: flex;
     padding-bottom: 15px;
     border-bottom: 1px solid #c1c1c1;
+    justify-content:space-between;
+    align-items:flex-end;
 }
 
 .final-room-details ul li {
@@ -2229,13 +2260,18 @@ section.room-display-page {
     width: 30%;
 }
 
+
+.final-room-details ul li:nth-child(3) {
+    
+    text-align:right;
+}
 .final-room-details ul li p {
     margin-bottom: 2px;
 }
 
 .final-room-details ul li span {
     font-weight: 600;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .room-total-wrapp {
@@ -2251,6 +2287,7 @@ section.room-display-page {
 .room-total-wrapp ul li {
     display: flex;
     width: 100%;
+    justify-content:space-between;
 }
 
 .room-total-wrapp ul li h4,
@@ -2265,8 +2302,10 @@ section.room-display-page {
 }
 
 .gest-info-sec {
-    padding: 30px;
-    border: 1px solid #c1c1c1;
+    padding: 15px;
+    /*border: 1px solid #c1c1c1;*/
+    background:#fff;
+    margin-bottom:30px;
 }
 
 .gest-info-sec form label {
@@ -2275,10 +2314,14 @@ section.room-display-page {
     font-size: 14px;
 }
 
+
+.phone-wrapper select,
 .gest-info-sec form input {
     width: 100%;
-    padding: 10px 10px;
+    padding: 5px 10px;
     margin-bottom: 10px;
+    font-size:14px;
+    border:1px solid #ccc;
 }
 
 .gest-info-sec h3 {
@@ -2352,13 +2395,15 @@ section.room-display-page {
 .book-button-wrapper {
     display: block;
     width: 100%;
-    padding: 30px 0;
+    padding-top: 30px;
 }
 
 .book-button-wrapper textarea {
     width: 100%;
-    height: 200px;
+    /*height: 200px;*/
     margin-bottom: 20px;
+    border:none;
+    border:1px solid #ccc;
 }
 
 .room-detail-btn {
@@ -2367,7 +2412,7 @@ section.room-display-page {
     max-width: 200px;
     outline: none;
     border: none;
-    font-size: 18px;
+    font-size: 14px;
     border-radius: 0;
 }
 
@@ -2491,6 +2536,13 @@ section.room-display-page {
     position: relative;
 }
 
+.trigger {
+    background: transparent !important;
+    font-size: 14px !important;
+    font-weight: 600;
+    color: #333;
+}
+
 .option-image-wrapp h3 {
     position: absolute;
     bottom: 0;
@@ -2547,6 +2599,9 @@ section.room-display-page {
 
 .option-right {
     text-align: right;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .option-right p {
@@ -2574,11 +2629,16 @@ section.room-display-page {
 .option-right a {
     outline: none;
     border: none;
-    display: inline-flex;
-    font-size: 11px;
+    display: inline-block;
+    font-size: 12px;
     min-width: 70px;
     margin: 0 !important;
     padding: 5px;
+}
+
+.all-room-wrapp {
+    
+    margin-bottom:30px;
 }
 
 .option-right a {
@@ -2597,6 +2657,7 @@ section.room-display-page {
     margin-bottom: 20px;
     background: #ffffff;
     padding: 10px;
+    padding-top:25px;
 }
 
 .btn-danger {
@@ -2802,7 +2863,214 @@ p.room-name {
 }
 
 
+/* packages info page starts */
 
+
+.all-sec-padding {
+
+    padding:80px 0;
+}
+
+.package-info-title {
+
+    margin-bottom: 50px;
+}
+
+.package-info-title h2 {
+
+    color: #333;
+    text-transform: none;
+}
+
+.package-info-wrapp {
+
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+.package-inner-link-wrapper {
+
+    display: block;
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: 300ms ease all;
+    margin-bottom: 30px;
+
+}
+
+.package-inner-link-wrapper:hover {
+
+    text-decoration: none;
+    transform: translateY(-10px);
+}
+
+.package-inner-link-wrapper img {
+
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transform: scale(1);
+    transition: 300ms ease-in-out;
+}
+
+.package-img {
+    overflow: hidden;
+}
+
+.package-inner-link-wrapper:hover img {
+
+    transform: scale(1.15) rotate(5deg); 
+}
+
+.package-inner-link-wrapper h3 {
+
+    font-size: 18px;
+    padding: 20px 10px;
+    position: relative;
+    transition: 300ms ease all;
+}
+
+.package-image-side img {
+
+    width: 100%;
+    height: auto;
+}
+
+
+.packge-content-side p {
+
+    font-size: 16px;
+    font-weight: 500;
+    color: #595959;
+}
+
+/* packages info page ends */
+
+
+.all-room-list-page {
+
+    background: #f6f9f4;
+}
+
+
+.service__row__wrapper {
+    
+    justify-content:center;
+
+}
+
+
+.book__button {
+    
+    display:block;
+}
+
+
+
+
+/* gallery listing page starts */
+
+.gal-wrapper {
+
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.gal-wrapper img {
+
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: 500ms ease all;
+    transform: scale(1);
+}
+
+.gal-wrapper:hover img {
+
+    transform: scale(1.1);
+}
+
+.gal-title {
+
+    position: absolute;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    z-index: 3;
+}
+
+.gal-wrapper::before {
+
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80%;
+    background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );
+    z-index: 1;
+
+}
+
+.gal-detail-link {
+
+    display: block;
+    margin: 2px;
+    position: relative;
+    outline: 1px solid #fff;
+    transition: 300ms ease-in-out;
+}
+
+.gal-detail-link:hover {
+
+    outline-offset: -15px;
+}
+
+.gal-detail-link img {
+
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.gal-detail-link::before {
+
+    content: "\f00e";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-family: fontawesome;
+    font-size: 14px;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    transform: translate(-50%,-50%) scaleY(0);
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    transition: 300ms ease all;
+
+}
+
+.gal-detail-link:hover:before {
+
+    transform: translate(-50%,-50%) scaleY(1);
+}
+
+
+/* gallery section ends */
 
 
 

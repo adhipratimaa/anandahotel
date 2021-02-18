@@ -34,18 +34,19 @@
 							<tr>
 								<th>S.N.</th>
 								<th>Name</th>
+                <th>Show in primary menu?</th>
 								<th>Status</th>
-                                <th>Action</th>
+                <th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-						@php($i=1)
-                        @foreach($details as $detail)
-                        <tr>
-                        	<td>{{$i++}}</td>
+						      @php($i=1)
+                  @foreach($details as $detail)
+                <tr>
+                    <td>{{$i++}}</td>
 				            <td>{{$detail->title}}</td>
-				           
-				            <td>{{$detail->publish==1? 'active':'inactive'}}</td>
+                    <td>{{($detail->show_in_menu==1)?'yes':'no'}}</td>
+                    <td>{{$detail->publish==1? 'active':'inactive'}}</td>
 				            <td>
 				            	<a class="btn btn-info edit" href="{{route('service.edit',$detail->id)}}" title="Edit">Edit</a>
 				            	<form method= "post" action="{{route('service.destroy',$detail->id)}}" class="delete">

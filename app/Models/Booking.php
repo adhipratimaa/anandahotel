@@ -29,10 +29,14 @@ class Booking extends Model
         // 'restro_order_color',
         'payment_method',
         'join',
-        'customer_id'
+        'customer_id',
+        'number_of_rooms',
     ];
 
     public function room(){
         return $this->belongsTo('App\Models\Room','room_id');
+    }
+    public function roomType(){
+        return $this->belongsTo('App\Models\RoomType','roomtype_id');
     }
 }

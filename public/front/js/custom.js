@@ -13,6 +13,33 @@
 
 
 
+$(document).ready(function(){
+    $('.gal-detail-link').magnificPopup({
+        type: 'image',
+      mainClass: 'mfp-with-zoom', 
+      gallery:{
+                enabled:true
+            },
+    
+      zoom: {
+        enabled: true, 
+    
+        duration: 300, // duration of the effect, in milliseconds
+        easing: 'ease-in-out', // CSS transition easing function
+    
+        opener: function(openerElement) {
+    
+          return openerElement.is('img') ? openerElement : openerElement.find('img');
+      }
+    }
+    
+    });
+    
+    });
+
+
+
+
 $(document).ready(function() {
     $('.main-slider').flexslider({
         animation: "fade", // fade, slide, ...
@@ -237,16 +264,16 @@ $(function() { //run when the DOM is ready
 
 // ===== Scroll to Top ==== 
 $(window).scroll(function() {
-    if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
-        $('#return-to-top').fadeIn(200); // Fade in the arrow
+    if ($(this).scrollTop() >= 1500) { // If page is scrolled more than 50px
+        $('#return-to-top').fadeIn(100); // Fade in the arrow
     } else {
-        $('#return-to-top').fadeOut(200); // Else fade out the arrow
+        $('#return-to-top').fadeOut(100); // Else fade out the arrow
     }
 });
 $('#return-to-top').click(function() { // When arrow is clicked
     $('body,html').animate({
         scrollTop: 0 // Scroll to top of body
-    }, 1500);
+    }, 500);
 });
 
 
@@ -276,7 +303,9 @@ $(document).ready(function() {
 
 $(function() { //run when the DOM is ready
     $(".trigger-button").click(function() { //use a class, since your ID gets mangled
+   
         $(this).toggleClass("active"); //add the class to the clicked element
+       
         $('.small-sticky-form-book-form ').toggleClass("open");
         if ($(this).hasClass('active')) {
             $('.small-form-trigger-button').html('Close');
@@ -365,6 +394,65 @@ $(document).ready(function() {
         return false;
     });
 });
+ $(document).ready(function () {
+                $('.expand-room-detail').click(function () {
+                    var item = $(this).data("item");
+                    console.log(item);
+                    $('.roomItemTitle').html(item.name);
+                    $('.roomItemPrice').html('Rs ' + item.price + '/Night');
+                    $('.roomItemDescription').html(item.description);
+                    var otherImages = $(this).data('other-images');
+                    var imageList = [];
+                    otherImages.forEach(function (image, index) {
+                        imageList.push(image.image);
+                    })
+                    //   imageList.push(item.image);
+                    console.log(imageList);
+                    var html = ` <div class="flexslider room-detail-slider"><ul class="slides" id=""><li>
+                            <figure style="background-image:url('/images/main/${item.image}')"></figure>
+                        </li>`;
+                    imageList.forEach(function (image, index) {
+                        html += `<li>
+                            <figure style="background-image:url('/images/thumbnail/${image}')"></figure>
+                        </li>`;
+                    })
+                    html += `</ul></div>`;
+
+                    var facilities = $(this).data('facilities');
+                    // console.log('facilities is ',facilities);
+                    // var facilitiesList = [];
+                    // facilities.forEach(function (facility, index) {
+                    //     imageList.push(facility.facility);
+                    // })
+                    //   imageList.push(item.facilities);
+                    // console.log(facilitiesList);
+                    var facilitiesHtml = '';
+                    facilities.forEach(function (facility, index) {
+                        // facilitiesHtml += '';
+                        facilitiesHtml += `<li>
+                             <p>${ facility.title }</p>
+                        </li>`;
+                    })
+
+                    $('#featuresListing').html(facilitiesHtml);
+                    $('#roomImage').html(html);
+
+                    $('.modal-wrapper').toggleClass('open');
+                    $('.page-wrapper').toggleClass('blur');
+
+                    $('.room-detail-slider').flexslider({
+                        animation: "slide", // fade, slide, ...
+                        slideshowSpeed: 6000,
+                        animationSpeed: 1000,
+                        controlNav: false,
+                        initDelay: 0,
+                        directionNav: true,
+                        touch: true,
+                        autoplay: true
+                    });
+                    return false;
+                });
+            });
 
 
 
@@ -468,6 +556,24 @@ $(document).ready(function(){
 
 
 
+
+var main = function() {
+    $('.all_book_btn').click(function() {
+        $("body").addClass("overlay");
+
+        $('.book_form_slide').animate({ right: '0px' }, 300);
+        $('body').animate({ right: '500px' }, 300);
+    });
+    $('.close-btn').click(function() {
+        $("body").removeClass("overlay");
+
+        $('.book_form_slide').animate({ right: '-450px' }, 300);
+        $('body').animate({ right: '0px' }, 300);
+
+    });
+};
+
+$(document).ready(main);
 
 
 

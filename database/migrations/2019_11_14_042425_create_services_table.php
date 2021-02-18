@@ -17,10 +17,13 @@ class CreateServicesTable extends Migration
             $table->bigIncrements('id');
             
             $table->string('title')->nullable();
+            $table->enum('category',['packages','dining','meeting_and_conference']);
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('logo')->nullable();
-            $table->boolean('publish');
+            $table->boolean('show_in_menu')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('slug');
             $table->timestamps();
         });
     }

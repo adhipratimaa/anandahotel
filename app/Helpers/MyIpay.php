@@ -77,6 +77,7 @@ class MyIpay {
 		$curl = curl_init();
 		curl_setopt_array($curl, $options);
 		$response = curl_exec($curl);
+		//dd($response);
 		curl_close($curl);
 		$myhashmap = array();
 		
